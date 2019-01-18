@@ -14,7 +14,7 @@ from tensorflow.contrib.slim import arg_scope
 
 import numpy as np
 
-from layer_utils.snippets import generate_anchors_pre, generate_anchors_pre_tf
+from layer_utils.snippets import generate_anchors_pre, generate_anchors_pre_tf, roi_align
 from layer_utils.proposal_layer import proposal_layer, proposal_layer_tf
 from layer_utils.proposal_top_layer import proposal_top_layer, proposal_top_layer_tf
 from layer_utils.anchor_target_layer import anchor_target_layer
@@ -247,7 +247,9 @@ class Network(object):
       rois = self._region_proposal(net_conv, is_training, initializer)
       # region of interest pooling
       if cfg.POOLING_MODE == 'crop':
-        pool5 = self._crop_pool_layer(net_conv, rois, "pool5")
+        feat = tf.transpose(net_conv, [0, 3, 1, 2])
+        pool5 = roi_align(feat, rois*1.0/ 16, cfg.POOLING_SIZE)
+        pool5 = tf.transpose(pool5, [0, 2, 3, 1])
       else:
         raise NotImplementedError
 
