@@ -11,14 +11,14 @@ NET=$3
 
 array=( $@ )
 len=${#array[@]}
-EXTRA_ARGS=${array[@]:3:$len}
+EXTRA_ARGS=${array[@]:4:$len}
 EXTRA_ARGS_SLUG=${EXTRA_ARGS// /_}
 
 case ${DATASET} in
   pascal_voc)
     TRAIN_IMDB="voc_2007_trainval"
     TEST_IMDB="voc_2007_test"
-    ITERS=70000
+    ITERS=$4
     ANCHORS="[8,16,32]"
     RATIOS="[0.5,1,2]"
     ;;

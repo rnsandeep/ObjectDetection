@@ -293,7 +293,8 @@ class SolverWrapper(object):
         rpn_loss_cls, rpn_loss_box, loss_cls, loss_box, total_loss = \
           self.net.train_step(sess, blobs, train_op)
       timer.toc()
-
+      
+     # print(my_dict)
       # Display training information
       if iter % (cfg.TRAIN.DISPLAY) == 0:
         print('iter: %d / %d, total loss: %.6f\n >>> rpn_loss_cls: %.6f\n '
@@ -309,8 +310,8 @@ class SolverWrapper(object):
         ss_paths.append(ss_path)
 
         # Remove the old snapshots if there are too many
-        if len(np_paths) > cfg.TRAIN.SNAPSHOT_KEPT:
-          self.remove_snapshot(np_paths, ss_paths)
+#        if len(np_paths) > cfg.TRAIN.SNAPSHOT_KEPT:
+#          self.remove_snapshot(np_paths, ss_paths)
 
       iter += 1
 
