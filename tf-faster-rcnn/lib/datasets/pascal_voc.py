@@ -34,11 +34,8 @@ class pascal_voc(imdb):
     self._devkit_path = self._get_default_path()
     self._data_path = os.path.join(self._devkit_path, 'VOC' + self._year)
     self._classes = ('__background__',  # always index 0
-                     'aeroplane', 'bicycle', 'bird', 'boat',
-                     'bottle', 'bus', 'car', 'cat', 'chair',
-                     'cow', 'diningtable', 'dog', 'horse',
-                     'motorbike', 'person', 'pottedplant',
-                     'sheep', 'sofa', 'train', 'tvmonitor')
+                     'aeroplane')
+#                    'come-region', 'ascar-region','oscar-region','mole-exact','darkspot-region','pimple-region')
     self._class_to_ind = dict(list(zip(self.classes, list(range(self.num_classes)))))
     self._image_ext = '.jpg'
     self._image_index = self._load_image_set_index()
@@ -64,6 +61,22 @@ class pascal_voc(imdb):
     Return the absolute path to image i in the image sequence.
     """
     return self.image_path_from_index(self._image_index[i])
+
+  def seg_path_at(self, i):
+    """
+    Return the absolute path to segment image i in the image sequence.
+    """
+    return self.seg_image_path_from_index(self._image_index[i])
+
+  def seg_image_path_from_index(self, index):
+    """
+    Construct an image path from the image's "index" identifier.
+    """
+    seg_image_path = os.path.join(self._data_path, 'SegmentationClassAug',
+                              index + self._image_ext)
+    assert os.path.exists(seg_image_path), \
+      'Path does not exist: {}'.format(seg_image_path)
+    return seg_image_path
 
   def image_path_from_index(self, index):
     """

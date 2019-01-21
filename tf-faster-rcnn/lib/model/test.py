@@ -180,9 +180,9 @@ def test_net(sess, net, imdb, weights_filename, max_per_image=100, thresh=0.):
           all_boxes[j][i] = all_boxes[j][i][keep, :]
     _t['misc'].toc()
 
-    print('im_detect: {:d}/{:d} {:.3f}s {:.3f}s' \
-        .format(i + 1, num_images, _t['im_detect'].average_time,
-            _t['misc'].average_time))
+#    print('im_detect: {:d}/{:d} {:.3f}s {:.3f}s' \
+#        .format(i + 1, num_images, _t['im_detect'].average_time,
+#            _t['misc'].average_time))
 
   det_file = os.path.join(output_dir, 'detections.pkl')
   with open(det_file, 'wb') as f:
