@@ -345,7 +345,7 @@ class Network(nn.Module):
     """
         summaries = []
         # Add image gt
-        summaries.append(self._add_gt_image_summary())
+        #summaries.append(self._add_gt_image_summary())
         # Add event_summaries
         for key, var in self._event_summaries.items():
             summaries.append(tb.summary.scalar(key, var.item()))
